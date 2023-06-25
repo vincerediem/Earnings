@@ -1,4 +1,5 @@
 import requests
+import pandas as pd
 
 alpha_vantage_key = 'Y84MMO9G796B0PNO'
 
@@ -7,8 +8,25 @@ def stock_list():
     # Split the string and convert each value to integer, creating an array
     stock_list = input_str.split()
     return stock_list
-
 stock_list = stock_list()
+
+def annual_metrics(annual_earnings, stock):
+    print(stock.upper() + " __annual earnings__")
+    for i in annual_earnings[:5]:
+        print(f"${float(i['reportedEPS'])} on {i['fiscalDateEnding']}")
+
+def quarterly_metrics(quarterly_earnings, stock):
+    print(stock.upper() + " __quarterly earnings__")
+    df = pd.DataFrame(quarterly_earnings[:20])
+    print(df)
+    '''for i in quarterly_earnings[:20]:
+        print(i['fiscalDateEnding'])
+        print(i['reportedDate'])
+        print(i['reportedEPS'])
+        print(i['estimatedEPS'])
+        print(i['surprise'])
+        print(i['surprisePercentage'])'''
+
 
 def earnings_history(stock_list):
     for stock in stock_list:
@@ -21,9 +39,10 @@ def earnings_history(stock_list):
 
         quarterly_earnings = data['quarterlyEarnings']
 
-        print(stock.upper())
-        for i in annual_earnings:
-            print(f"{float(i['reportedEPS'])}% on {i['fiscalDateEnding']}")
+        annual_metrics(annual_earnings, stock)
+
+        quarterly_metrics(quarterly_earnings, stock)
+
 
     return annual_earnings, quarterly_earnings
     
