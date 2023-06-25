@@ -17,15 +17,9 @@ def annual_metrics(annual_earnings, stock):
 
 def quarterly_metrics(quarterly_earnings, stock):
     print(stock.upper() + " __quarterly earnings__")
+    #create dataframe to display quarterly data
     df = pd.DataFrame(quarterly_earnings[:20])
     print(df)
-    '''for i in quarterly_earnings[:20]:
-        print(i['fiscalDateEnding'])
-        print(i['reportedDate'])
-        print(i['reportedEPS'])
-        print(i['estimatedEPS'])
-        print(i['surprise'])
-        print(i['surprisePercentage'])'''
 
 
 def earnings_history(stock_list):
@@ -38,6 +32,8 @@ def earnings_history(stock_list):
         #contains 'reportedEPS' and 'fiscalDateEnding'
 
         quarterly_earnings = data['quarterlyEarnings']
+        #contains fiscalDateEnding, reportedDate, reportedEPS, 
+        #estimatedEPS, surprise, surprisePercentage
 
         annual_metrics(annual_earnings, stock)
 
