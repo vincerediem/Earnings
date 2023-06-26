@@ -23,7 +23,7 @@ def quarterly_metrics(quarterly_earnings, stock):
 
 def earnings_history(stock_list):
     for stock in stock_list:
-        url = 'https://www.alphavantage.co/query?function=EARNINGS&symbol=' + stock + '&apikey=Y84MMO9G796B0PNO'
+        url = 'https://www.alphavantage.co/query?function=EARNINGS&symbol=' + stock + '&apikey=' + ALPHA_VANTAGE_KEY
         r = requests.get(url)
         data = r.json()
 
@@ -40,5 +40,25 @@ def earnings_history(stock_list):
 
 
     return annual_earnings, quarterly_earnings
+
+def price_history(stock_list):
+    for stock in stock_list:
+        url = 'https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=' + stock + '&apikey=' + ALPHA_VANTAGE_KEY
+        r = requests.get(url)
+        data = r.json()
+
+        closing_prices = []
+        time_series = data['Time Series (Daily)']
+        for date in time_series:
+            closing_price = float(time_series[date]['4. close'])
+            closing_prices.append(closing_price)
+        
+        df = pd.DataFrame({'Closing Price': closing_prices})
+    
+    return df
+
     
 annual_earnings, quarterly_earnings = earnings_history(stock_list)
+
+df = price_history(stock_list)
+print(df)
