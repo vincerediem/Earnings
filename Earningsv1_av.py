@@ -1,7 +1,7 @@
 import requests
 import pandas as pd
 
-alpha_vantage_key = 'Y84MMO9G796B0PNO'
+ALPHA_VANTAGE_KEY = 'Y84MMO9G796B0PNO'
 
 def stock_list():
     input_str = input("Enter stocks separated by space: ")
@@ -20,7 +20,6 @@ def quarterly_metrics(quarterly_earnings, stock):
     #create dataframe to display quarterly data
     df = pd.DataFrame(quarterly_earnings[:20])
     print(df)
-
 
 def earnings_history(stock_list):
     for stock in stock_list:
